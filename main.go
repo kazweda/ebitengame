@@ -4,6 +4,7 @@ import (
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/kazweda/ebitengame/circle"
 )
 
 const (
@@ -21,14 +22,14 @@ func (g *Game) Update() error {
 	return nil
 }
 
-func (g *Game) Draw(screen *ebiten.Image) {
-	purpleCol := color.RGBA{255, 0, 255, 255}
+func (g *Game) drawCircle(screen *ebiten.Image, x, y, radius int, clr color.Color) {
+	circle.DrawCircle(screen, x, y, radius, clr)
+}
 
-	for x := 100; x < 200; x++ {
-		for y := 100; y < 200; y++ {
-			screen.Set(x, y, purpleCol)
-		}
-	}
+func (g *Game) Draw(screen *ebiten.Image) {
+	purpleClr := color.RGBA{255, 0, 255, 255}
+
+	g.drawCircle(screen, 150, 150, 50, purpleClr)
 }
 
 func main() {
