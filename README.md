@@ -6,6 +6,10 @@ I studying by reading this article.
 
 [Creating Cool Games With Ebiten](https://golangprojectstructure.com/creating-cool-games-with-ebiten-in-go/)
 
+## 2021.12.26
+Making the Ball Bounce までと、
+とりあえずのファイルの分割。
+
 ## 実行
 ```
 go run main.go
