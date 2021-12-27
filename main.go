@@ -1,9 +1,6 @@
 package main
 
 import (
-	"image/color"
-	"math"
-
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/kazweda/ebitengame/circle"
 )
@@ -44,12 +41,7 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	purpleClr := color.RGBA{255, 0, 255, 255}
-
-	x := int(math.Round(ballPositionX))
-	y := int(math.Round(ballPositionY))
-
-	circle.DrawCircle(screen, x, y, ballRadius, purpleClr)
+	circle.DrawCircle(screen, ballPositionX, ballPositionY, ballRadius)
 }
 
 func main() {
