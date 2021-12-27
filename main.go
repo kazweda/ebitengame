@@ -43,17 +43,13 @@ func (g *Game) Update() error {
 	return nil
 }
 
-func (g *Game) drawCircle(screen *ebiten.Image, x, y, radius int, clr color.Color) {
-	circle.DrawCircle(screen, x, y, radius, clr)
-}
-
 func (g *Game) Draw(screen *ebiten.Image) {
 	purpleClr := color.RGBA{255, 0, 255, 255}
 
 	x := int(math.Round(ballPositionX))
 	y := int(math.Round(ballPositionY))
 
-	g.drawCircle(screen, x, y, ballRadius, purpleClr)
+	circle.DrawCircle(screen, x, y, ballRadius, purpleClr)
 }
 
 func main() {

@@ -7,8 +7,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-type Game struct{}
-
 func DrawCircle(screen *ebiten.Image, x, y, radius int, clr color.Color) {
 	radius64 := float64(radius)
 	minAngle := math.Acos(1 - 1/radius64)
