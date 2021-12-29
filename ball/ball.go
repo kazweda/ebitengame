@@ -3,6 +3,7 @@ package ball
 import (
 	"image/color"
 	"math"
+	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -12,12 +13,13 @@ const (
 )
 
 var (
-	screenW float64
-	screenH float64
-	posX    float64
-	posY    float64
-	moveX   float64
-	moveY   float64
+	screenW        float64
+	screenH        float64
+	posX           float64
+	posY           float64
+	moveX          float64
+	moveY          float64
+	prevUpdateTime time.Time
 )
 
 func Init(screenWidth int, screenHeight int) {
@@ -25,19 +27,40 @@ func Init(screenWidth int, screenHeight int) {
 	screenH = float64(screenHeight)
 	posX = screenW / 2
 	posY = screenH / 2
-	moveX = float64(0.5)
-	moveY = float64(0.75)
+	moveX = float64(0.00000006)
+	moveY = float64(0.00000004)
+	prevUpdateTime = time.Now()
 }
 
 func UpdatePosition() {
-	posX += moveX
-	posY += moveY
+	timeDelta := float64(time.Since(prevUpdateTime))
+	prevUpdateTime = time.Now()
 
-	if posX >= screenW-ballRadius || posX <= ballRadius {
+	posX += moveX * timeDelta
+	posY += moveY * timeDelta
+
+	const minX = ballRadius
+	const minY = ballRadius
+	var maxX = screenW - ballRadius
+	var maxY = screenH - ballRadius
+
+	if posX >= maxX || posX <= minX {
+		if posX > maxX {
+			posX = maxX
+		} else if posX < minX {
+			posX = minX
+		}
+
 		moveX *= -1
 	}
 
-	if posY >= screenH-ballRadius || posY <= ballRadius {
+	if posY >= maxY || posY <= minY {
+		if posY > maxY {
+			posY = maxY
+		} else if posY < minY {
+			posY = minY
+		}
+
 		moveY *= -1
 	}
 }
