@@ -66,20 +66,35 @@ func UpdatePosition() {
 }
 
 func DrawCircle(screen *ebiten.Image) {
-	purpleClr := color.RGBA{255, 0, 255, 255}
+	clr := color.RGBA{255, 0, 255, 255}
 
 	x := int(math.Round(posX))
 	y := int(math.Round(posY))
+
 	radius64 := float64(ballRadius)
 	minAngle := math.Acos(1 - 1/radius64)
 
 	for angle := float64(0); angle <= 360; angle += minAngle {
-		xDelta := radius64 * math.Cos(angle)
-		yDelta := radius64 * math.Sin(angle)
+		fillCircle(screen, x, y, radius64, angle, clr)
+	}
+}
 
-		x1 := int(math.Round(float64(x) + xDelta))
-		y1 := int(math.Round(float64(y) + yDelta))
+func fillCircle(screen *ebiten.Image, x int, y int, radius64 float64, angle float64, clr color.Color) {
+	xDelta := radius64 * math.Cos(angle)
+	yDelta := radius64 * math.Sin(angle)
 
-		screen.Set(x1, y1, purpleClr)
+	x1 := int(math.Round(float64(x) + xDelta))
+	y1 := int(math.Round(float64(y) + yDelta))
+
+	screen.Set(x1, y1, clr)
+
+	if y1 < y {
+		for y2 := y1; y2 <= y; y2++ {
+			screen.Set(x1, y2, clr)
+		}
+	} else {
+		for y2 := y1; y2 > y; y2-- {
+			screen.Set(x1, y2, clr)
+		}
 	}
 }
